@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajax request</title>
+</head>
+<body>
+  <script>
+  
+        $(document).ready(function () {
+           $('#contactForm').on('submit', function (event) {
+              event.preventDefault();
+              var data = $(this).serialize();
+              $.ajax({
+                  type: 'POST',
+                  url: '/mail.php',
+                  data: data,
+                  success: function (data) {
+                      $("#contactForm").trigger('reset');
+                      $("#contactForm").append('<p>Letter send successfully</p>');
+                      setTimeout(function(){
+                          if ($('#contactForm p').length > 0) {
+                              $('#contactForm p').remove();
+                          }
+                      }, 5000)
+
+                      console.log(data);
+                  }
+              });
+
+           });
+        });
+    
+  </script>
+</body>
+</html>
